@@ -10,11 +10,11 @@
 /coverage
 
 # next.js
-/.next/
+/client/.next/
 /out/
 
 # production
-/build
+/client/build
 
 # misc
 .DS_Store
@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/server/.env
+/client/.env
+/client/.next/*
+client/.next/*
