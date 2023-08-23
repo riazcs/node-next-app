@@ -38,3 +38,6 @@ next-env.d.ts
 /client/.env
 /client/.next/*
 client/.next/*
+client/.next/app-build-manifest.json
+client/.next/app-build-manifest.json
+client/.next/server/pages-manifest.json
