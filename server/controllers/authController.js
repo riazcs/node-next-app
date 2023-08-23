@@ -5,13 +5,13 @@ const User = require('../models/user');
 
 exports.register = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, email, address } = req.body;
         // Validate inputs
         // Check if user exists
         const user = new User({
             username,
-            // email,
-            password,
+            email,
+            address
             // role: 'user', // Default role
         });
 
@@ -45,14 +45,16 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
         const user = await User.findOne({ email });
-
-        if (!user) {
+        
+        if (user == null) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
-
         const isMatch = await bcrypt.compare(password, user.password);
+        const salt = await bcrypt.genSalt(5);
+        const iPassword = await bcrypt.hash(password, salt);
+        console.log('iPass', iPassword)
+        console.log('uPass', user.password)
 
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid credentials' });
@@ -60,7 +62,7 @@ exports.login = async (req, res) => {
 
         const payload = {
             user: {
-                id: user.id,
+                id: user._id,
             },
         };
 
