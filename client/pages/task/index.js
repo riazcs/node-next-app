@@ -1,7 +1,7 @@
 import { Box, Button, Center, ChakraProvider, Container, Heading } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import LoginForm from '../components/LoginForm';
-import RegistrationForm from '../components/RegistrationForm';
+import LoginForm from '@/components/LoginForm';
+import RegistrationForm from '@/components/RegistrationForm';
 
 const Home = () => {
   const [isLogin, setIsLogin] = useState(true);

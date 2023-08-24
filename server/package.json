@@ -19,6 +19,7 @@
     "express-rate-limit": "^6.9.0",
     "express-validator": "^7.0.1",
     "faker": "^6.6.6",
+    "jquery": "^3.7.0",
     "jsonwebtoken": "^9.0.1",
     "migrate-mongoose": "^4.0.0",
     "mongodb": "^5.8.0",

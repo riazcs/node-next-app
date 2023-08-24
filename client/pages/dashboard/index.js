@@ -1,7 +1,20 @@
-import React from 'react';
+import { useEffect } from 'react';
 import AdminLayout from '@/components/AdminLayout';
+import withAuth from '@/middleware/withAuth';
+import api from "service/api";
+import { useRouter } from 'next/router';
 
 const Dashboard = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      router.push('/login');
+    }
+  }, []);
+
   return (
     <AdminLayout>
       <div className="content-wrapper">

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from "service/api";
 import styles from '../public/css/custom.module.css';
+import { useRouter } from 'next/router';
 
 const LoginForm = () => {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -11,10 +13,10 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(process.env.API_URL + '/login', { email, password });
+            const response = await api.post('/login', { email, password });
             const token = response.data.token;
             localStorage.setItem('token', token);
-            window.location.replace('/dashboard');
+            router.push('/dashboard');
         } catch (error) {
             setError('Invalid username or password');
         }
