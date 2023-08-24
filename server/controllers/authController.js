@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        
+
         if (user == null) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
@@ -75,6 +75,24 @@ exports.login = async (req, res) => {
                 res.json({ token });
             }
         );
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+exports.logout = async (req, res) => {
+    try {
+        console.log()
+        req.session.destroy(err => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Logout Error');
+            } else {
+                res.clearCookie('connect.sid'); // Clear the session cookie
+                res.status(200).send('Logged out successfully');
+            }
+        });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
