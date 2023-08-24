@@ -14,12 +14,7 @@ const AdminLayout = ({ children }) => {
           <li className="nav-item">
             <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars"></i></a>
           </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" className="nav-link">Home</a>
-          </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="#" className="nav-link">Contact</a>
-          </li>
+         
         </ul>
 
         <ul className="navbar-nav ml-auto">
@@ -48,7 +43,7 @@ const AdminLayout = ({ children }) => {
           <li className="nav-item dropdown">
             <a className="nav-link" data-toggle="dropdown" href="#">
               <i className="far fa-comments"></i>
-              <span className="badge badge-danger navbar-badge">3</span>
+              <span className="badge badge-danger navbar-badge"></span>
             </a>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="#" className="dropdown-item">
@@ -103,7 +98,7 @@ const AdminLayout = ({ children }) => {
           <li className="nav-item dropdown">
             <a className="nav-link" data-toggle="dropdown" href="#">
               <i className="far fa-bell"></i>
-              <span className="badge badge-warning navbar-badge">15</span>
+              <span className="badge badge-warning navbar-badge"></span>
             </a>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span className="dropdown-item dropdown-header">15 Notifications</span>

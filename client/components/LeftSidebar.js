@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import api from "service/api";
+import Link from 'next/link';
 
 const LeftSidebar = () => {
     const router = useRouter();
@@ -20,130 +21,87 @@ const LeftSidebar = () => {
 
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="index3.html" className="brand-link">
+            <Link href="/dashboard" className="brand-link">
                 <span className="brand-text font-weight-light">Admin Panel</span>
-            </a>
+            </Link>
 
             <div className="sidebar">
                 <nav className="mt-2">
                     <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li className="nav-item">
-                            <a href="pages/widgets.html" className="nav-link">
+                            <Link href="/dashboard" className={router.pathname === '/dashboard' ? 'nav-link active' : 'nav-link'}>
+                                <i className="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href="/users" className={router.pathname === '/users' ? 'nav-link active' : 'nav-link'}>
                                 <i className="nav-icon fas fa-users"></i>
                                 <p>
                                     User
                                 </p>
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
+                            <Link href="#" className="nav-link">
                                 <i className="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Product
                                     <i className="right fas fa-angle-left"></i>
                                 </p>
-                            </a>
+                            </Link>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="pages/charts/chartjs.html" className="nav-link">
+                                    <Link href="/products" className="nav-link">
                                         <i className="far fa-circle nav-icon"></i>
-                                        <p>ChartJS</p>
-                                    </a>
+                                        <p>Product</p>
+                                    </Link>
                                 </li>
+
                                 <li className="nav-item">
-                                    <a href="pages/charts/flot.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Flot</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/charts/inline.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Inline</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/charts/uplot.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>uPlot</p>
-                                    </a>
+                                    <Link href="/products/add" className="nav-link">
+                                        <i className="fa fa-plus nav-icon"></i>
+                                        <p>Add Product</p>
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
+                            <Link href="/jobs" className="nav-link">
                                 <i className="nav-icon fas fa-tree"></i>
                                 <p>
                                     Job
                                     <i className="fas fa-angle-left right"></i>
                                 </p>
-                            </a>
+                            </Link>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="pages/UI/general.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>General</p>
-                                    </a>
+                                    <Link href="/jobs" className="nav-link">
+                                        <i className="fa fa-briefcase nav-icon"> </i>
+                                        <p>jobs</p>
+                                    </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/icons.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Icons</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/buttons.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Buttons</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/sliders.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Sliders</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/modals.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Modals & Alerts</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/navbar.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Navbar & Tabs</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/timeline.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Timeline</p>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="pages/UI/ribbons.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
-                                        <p>Ribbons</p>
-                                    </a>
-                                </li>
+
+                                
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
+                            <Link href="/categories" className="nav-link">
                                 <i className="nav-icon fas fa-plus"></i>
                                 <p>
                                     Category
                                     <i className="fas fa-angle-left right"></i>
                                 </p>
-                            </a>
+                            </Link>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="pages/forms/general.html" className="nav-link">
+                                    <Link href="/categories" className="nav-link">
                                         <i className="far fa-circle nav-icon"></i>
-                                        <p>Product</p>
-                                    </a>
+                                        <p>Category</p>
+                                    </Link>
                                 </li>
 
                             </ul>
@@ -151,39 +109,39 @@ const LeftSidebar = () => {
 
 
                         <li className="nav-item">
-                            <a href="/gallery" className="nav-link">
+                            <Link href="/gallery" className={router.pathname === '/gallery' ? 'nav-link active' : 'nav-link'}>
                                 <i className="nav-icon far fa-image"></i>
                                 <p>
                                     Gallery
                                 </p>
-                            </a>
+                            </Link>
                         </li>
-                        <li className="nav-item">
-                            <a href="#" className="nav-link">
+                        <li className={router.pathname === '/settings' || router.pathname === '/admin-setting' || router.pathname === '/payment-setting' ? 'nav-item menu-open' : 'nav-item'}>
+                            <Link href="/settings" className='nav-link'>
                                 <i className="nav-icon fas fa-cogs"></i>
                                 <p>
                                     Settings
                                     <i className="fas fa-angle-left right"></i>
                                 </p>
-                            </a>
+                            </Link>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="pages/tables/simple.html" className="nav-link">
-                                        <i className="far fa-cog nav-icon"></i>
+                                    <Link href="/settings" className={router.pathname === '/settings' ? 'nav-link active' : 'nav-link'}>
+                                        <i className="fa fa-cog nav-icon"></i>
                                         <p>General Settings</p>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="pages/tables/data.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
+                                    <Link href="/admin-setting" className={router.pathname === '/admin-setting' ? 'nav-link active' : 'nav-link'}>
+                                        <i className="far fa-building nav-icon"></i>
                                         <p>Admin Setting</p>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="pages/tables/jsgrid.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon"></i>
+                                    <Link href="/payment-setting" className={router.pathname === '/payment-setting' ? 'nav-link active' : 'nav-link'}>
+                                        <i className="far fa-calendar nav-icon"></i>
                                         <p>Payment Setting</p>
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </li>

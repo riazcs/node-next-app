@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import AdminLayout from '@/components/AdminLayout';
-import withAuth from '@/middleware/withAuth';
 import api from "service/api";
 import { useRouter } from 'next/router';
 
@@ -17,8 +16,6 @@ const Dashboard = () => {
 
   return (
     <AdminLayout>
-      <div className="content-wrapper">
-      <div className="content-header">
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
@@ -26,13 +23,12 @@ const Dashboard = () => {
             </div>
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
-                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                <li className="breadcrumb-item active">Dashboard v1</li>
+                <li className="breadcrumb-item"><a href="/">Home</a></li>
+                <li className="breadcrumb-item active">Dashboard</li>
               </ol>
             </div>
           </div>
         </div>
-      </div>
         <section className="content">
           <div className="container-fluid">
           <div className="row">
@@ -95,7 +91,6 @@ const Dashboard = () => {
           </div>
           </div>
         </section>
-      </div>
     </AdminLayout>
   );
 };
