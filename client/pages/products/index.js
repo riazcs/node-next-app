@@ -1,10 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import api from "service/api";
 import { useRouter } from 'next/router';
+import Pagination from '@/components/common/Pagination';
 
-const Dashboard = () => {
+const Products = () => {
     const router = useRouter();
+    const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [totalPages, setTotalPages] = useState();
+    const [totalEntries, setTotalEntries] = useState();
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -12,7 +18,34 @@ const Dashboard = () => {
         } else {
             router.push('/login');
         }
-    }, []);
+        fetchProducts();
+    }, [currentPage]);
+
+
+    const fetchProducts = async () => {
+        try {
+            const response = await api.get('/products', {
+                params: {
+                    page: currentPage,
+                    perPage: itemsPerPage
+                }
+            });
+            setProducts(response.data.products); // Update with the correct property name
+            setTotalPages(response.data.totalPages); // Update with the correct property name
+            setTotalEntries(response.data.totalProducts); //
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    const handleDelete = async (productId) => {
+        try {
+            await api.delete(`/products/${productId}`);
+            setProducts(products.filter(product => product._id !== productId));
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
 
     return (
         <AdminLayout>
@@ -44,47 +77,51 @@ const Dashboard = () => {
                                     <div id="example2_wrapper" className="dataTables_wrapper dt-bootstrap4"><div className="row"><div className="col-sm-12 col-md-6"></div><div className="col-sm-12 col-md-6"></div></div><div className="row"><div className="col-sm-12">
                                         <table id="example2" className="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
                                             <thead>
-                                                <tr><th className="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Title</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Category</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Price</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Quantity</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Action</th></tr>
+                                                <tr><th className="sorting sorting_asc" aria-controls="example2" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Title</th>
+                                                    <th className="sorting" aria-controls="example2" aria-label="Browser: activate to sort column ascending">Category</th>
+                                                    <th className="sorting" aria-controls="example2" aria-label="Platform(s): activate to sort column ascending">Price</th>
+                                                    <th className="sorting" aria-controls="example2" aria-label="Engine version: activate to sort column ascending">Quantity</th>
+                                                    <th className="sorting" aria-controls="example2" aria-label="CSS grade: activate to sort column ascending">Action</th></tr>
                                             </thead>
                                             <tbody>
+                                                {products.map(product => (
+                                                    <tr key={product._id}>
+                                                        <td>{product.title}</td>
+                                                        <td>{product.category}</td>
+                                                        <td>{product.price}</td>
+                                                        <td>{product.quantity}</td>
+                                                        <td>
+                                                            <button
+                                                                className="btn btn-primary"
+                                                                onClick={() => handleEdit(product._id)}
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                            <button
+                                                                className="btn btn-danger"
+                                                                onClick={() => handleDelete(product._id)}
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}</tbody>
 
-                                                <tr className="odd">
-                                                    <td className="dtr-control sorting_1" tabindex="0">Apple</td>
-                                                    <td>Firefox 1.0</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td>1.7</td>
-                                                    <td>A</td>
-                                                </tr></tbody>
-
-                                        </table></div></div><div className="row">
-                                            <div className="col-sm-12 col-md-5">
-                                                <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div><div className="col-sm-12 col-md-7">
-                                                <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                                    <ul className="pagination"><li className="paginate_button page-item previous disabled" id="example2_previous">
-                                                        <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" className="page-link">Previous</a></li><li className="paginate_button page-item active">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" className="page-link">1</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" className="page-link">2</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" className="page-link">3</a></li><li className="paginate_button page-item ">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" className="page-link">4</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" className="page-link">5</a></li><li className="paginate_button page-item ">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" className="page-link">6</a></li><li className="paginate_button page-item next" id="example2_next">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" className="page-link">Next</a>
-                                                        </li></ul></div></div></div></div>
+                                        </table>
+                                    </div></div>
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            totalPages={totalPages}
+                                            onPageChange={newPage => setCurrentPage(newPage)}
+                                            totalEntries={totalEntries}
+                                            perPage={itemsPerPage}
+                                        />
+                                    </div>
                                 </div>
 
                             </div>
-
-                           
-
                         </div>
-
                     </div>
-
                 </div>
 
             </section>
@@ -92,4 +129,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Products;

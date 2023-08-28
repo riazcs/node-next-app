@@ -4,7 +4,6 @@ import 'admin-lte/plugins/fontawesome-free/css/all.min.css';
 import 'admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css';
 import LeftSidebar from './LeftSidebar';
 import AdminFooter from './AdminFooter';
-// import 'admin-lte/dist/js/adminlte.min.js';
 
 const AdminLayout = ({ children }) => {
   return (
@@ -26,7 +25,7 @@ const AdminLayout = ({ children }) => {
             <div className="navbar-search-block">
               <form className="form-inline">
                 <div className="input-group input-group-sm">
-                  <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
+                  <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" value={someValue} onChange={(e) => setSomeValue(e.target.value)}/>
                   <div className="input-group-append">
                     <button className="btn btn-navbar" type="submit">
                       <i className="fas fa-search"></i>

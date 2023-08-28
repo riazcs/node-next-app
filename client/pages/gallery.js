@@ -43,19 +43,20 @@ const Dashboard = () => {
                                 <div className="col-sm-12 col-md-6">
                                     </div>
                                 <div className="col-sm-12 col-md-6">
-                                    <div id="example1_filter" className="dataTables_filter"><input type="search" className="form-control form-control-sm" placeholder="Search" aria-controls="example1" /></div></div></div><div className="row"><div className="col-sm-12">
+                  <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" value={someValue} onChange={(e) => setSomeValue(e.target.value)}/>
+                                    <div id="example1_filter" className="dataTables_filter"><input type="search" className="form-control form-control-sm"  placeholder="Search" aria-controls="example1" /></div></div></div><div className="row"><div className="col-sm-12">
                                         <table id="example1" className="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                                             <thead>
-                                                <tr><th className="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Title</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Category</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Type</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Salary Range</th>
-                                                    <th className="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Action</th></tr>
+                                                <tr><th className="sorting sorting_asc"   aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Title</th>
+                                                    <th className="sorting"   aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Category</th>
+                                                    <th className="sorting"   aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Type</th>
+                                                    <th className="sorting"   aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Salary Range</th>
+                                                    <th className="sorting"   aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Action</th></tr>
                                             </thead>
                                             <tbody>
 
                                                 <tr className="odd">
-                                                    <td className="dtr-control sorting_1" tabindex="0">Gecko</td>
+                                                    <td className="dtr-control sorting_1"  >Gecko</td>
                                                     <td>Firefox 1.0</td>
                                                     <td>Win 98+ / OSX.2+</td>
                                                     <td>1.7</td>
@@ -65,12 +66,12 @@ const Dashboard = () => {
                                         </table></div></div><div className="row"><div className="col-sm-12 col-md-5">
                                             <div className="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div>
                                     <div className="col-sm-12 col-md-7"><div className="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                                        <ul className="pagination"><li className="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" className="page-link">Previous</a></li>
-                                            <li className="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" className="page-link">1</a></li><li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" className="page-link">2</a></li>
-                                            <li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" className="page-link">3</a></li><li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" className="page-link">4</a></li><li className="paginate_button page-item ">
-                                                <a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" className="page-link">5</a></li><li className="paginate_button page-item ">
-                                                <a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" className="page-link">6</a>
-                                            </li><li className="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" className="page-link">Next</a></li></ul></div></div></div></div>
+                                        <ul className="pagination"><li className="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0"   className="page-link">Previous</a></li>
+                                            <li className="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1"   className="page-link">1</a></li><li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2"   className="page-link">2</a></li>
+                                            <li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3"   className="page-link">3</a></li><li className="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4"   className="page-link">4</a></li><li className="paginate_button page-item ">
+                                                <a href="#" aria-controls="example1" data-dt-idx="5"   className="page-link">5</a></li><li className="paginate_button page-item ">
+                                                <a href="#" aria-controls="example1" data-dt-idx="6"   className="page-link">6</a>
+                                            </li><li className="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7"   className="page-link">Next</a></li></ul></div></div></div></div>
                         </div>
 
                     </div>

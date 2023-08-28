@@ -22,7 +22,6 @@ const TaskList = ({ tasks, refreshTasks }) => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(API_URL + `/tasks/${editingTaskId}`, editedTask);
-      console.log(response.data);
       setEditingTaskId(null);
       setEditedTask({ title: '', description: '' });
       refreshTasks();
