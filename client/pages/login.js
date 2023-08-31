@@ -5,10 +5,10 @@ import LoginForm from '../components/LoginForm';
 
 const Login = () => {
   return (
-    <Layout>
+    <div>
       <h1>Login</h1>
       <LoginForm />
-    </Layout>
+    </div>
   );
 };
 

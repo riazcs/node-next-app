@@ -25,7 +25,7 @@ const AdminLayout = ({ children }) => {
             <div className="navbar-search-block">
               <form className="form-inline">
                 <div className="input-group input-group-sm">
-                  <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" value={someValue} onChange={(e) => setSomeValue(e.target.value)}/>
+                  <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"/>
                   <div className="input-group-append">
                     <button className="btn btn-navbar" type="submit">
                       <i className="fas fa-search"></i>

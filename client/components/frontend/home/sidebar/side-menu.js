@@ -1,17 +1,38 @@
+import { useEffect, useState } from 'react';
+import api from "service/api";
+
 const Sidebar = () => {
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await api.get('/categories');
+            setProducts(response.data.CategoryData);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
     return (
         <div className="side-menu animate-dropdown outer-bottom-xs">
             <div className="head"><i className="icon fa fa-align-justify fa-fw"></i> Categories</div>
             <nav className="yamm megamenu-horizontal">
                 <ul className="nav">
 
-                                         <li className="dropdown menu-item"> <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                    <li className="dropdown menu-item"> <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                         <i className="icon {{ $category->category_icon }}" aria-hidden="true"></i>
                         {/* @if (session()->get('language') == 'bangla')
                             {{ $category->category_name_bn }}
                          
                             {{ $category->category_name_en }}
                           */}
+                        {products.map(product => (
+                            <li key={product._id}>
+                               { product.category_image}
+                            </li>
+                        ))}
                     </a>
                         <ul className="dropdown-menu mega-menu">
                             <li className="yamm-content">
@@ -40,15 +61,15 @@ const Sidebar = () => {
                                                           */}
                                                 </a>
                                             </li>
-                                             
+
                                         </ul>
                                     </div>
-                                     
+
                                 </div>
                             </li>
                         </ul>
                     </li>
-                     
+
                 </ul>
             </nav>
         </div>
