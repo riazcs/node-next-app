@@ -140,7 +140,7 @@ const Category = () => {
                                                     <tr className="odd" key={category._id}>
                                                         <td className="dtr-control sorting_1">{category.category_name_en}{category.category_name_bn}</td>
                                                         <td>{category.category_slug_en}</td>
-                                                        <td>{category.category_image}</td>
+                                                        <td><img src={category.category_image} /></td>
                                                         <td>{moment(category.createdAt).format('LLL')}</td>
                                                         <td>
                                                             <button className='btn btn-sm btn-outline-secondary' onClick={() => handleEdit(category)}>Edit</button>

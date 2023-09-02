@@ -6,20 +6,19 @@ const TaskManageController = require('../controllers/TaskManageController');
 const ProductController = require('../controllers/ProductController');
 const CategoryController = require('../controllers/CategoryController');
 const multer = require('multer');
-const path = require('path');
 
-const storage = multer.diskStorage({
+var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "public/images/");
+        cb(null, 'public/uploads');
     },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        // cb(null, uniqueSuffix + path.extname(file.originalname));
-        cb(null, uniqueSuffix + file.originalname);
-    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
 });
-
-const upload = multer({ storage });
+var upload = multer({ storage: storage });
+function apiResponse(results) {
+    return JSON.stringify({ "status": 200, "error": null, "response": results });
+}
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
