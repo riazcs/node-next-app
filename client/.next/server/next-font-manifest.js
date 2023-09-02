@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{\"/categories\":[]},\"app\":{\"/var/www/html/mern-project/next-app/client/app/layout\":[\"static/media/2aaf0723e720e8b9-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":true}"
+self.__NEXT_FONT_MANIFEST='{"pages":{"/admin-setting":[],"/categories":[],"/dashboard":[],"/gallery":[],"/jobs":[],"/payment-setting":[],"/products/add":[],"/products":[],"/settings":[],"/users":[]},"app":{},"appUsingSizeAdjust":false,"pagesUsingSizeAdjust":true}';
