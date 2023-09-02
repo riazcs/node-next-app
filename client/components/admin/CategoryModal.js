@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const CategoryModal = ({ show, onClose, category, onSave }) => {
@@ -8,8 +7,8 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
         category_name_en: '',
         category_name_bn: '',
         category_slug_en: '',
-        category_image: ''
     });
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         if (category) {
@@ -28,9 +27,21 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
         });
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSave(categoryData);
+        const formData = new FormData();
+        formData.append('category_name_en', categoryData.category_name_en);
+        formData.append('category_name_bn', categoryData.category_name_bn);
+        formData.append('category_slug_en', categoryData.category_slug_en);
+        if (selectedFile) {
+            formData.append('image', selectedFile);
+        }
+        onSave(formData);
         onClose();
     };
 
@@ -40,7 +51,7 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
                 <Modal.Title>{category ? 'Edit Category' : 'Add Category'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} encType="multipart/form-data">
                     <Form.Group>
                         <Form.Label>Category Name (English)</Form.Label>
                         <Form.Control
@@ -48,6 +59,7 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
                             name="category_name_en"
                             value={categoryData.category_name_en}
                             onChange={handleChange}
+                            className='form-control'
                         />
                     </Form.Group>
                     <Form.Group>
@@ -57,6 +69,7 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
                             name="category_name_bn"
                             value={categoryData.category_name_bn}
                             onChange={handleChange}
+                            className='form-control'
                         />
                     </Form.Group>
                     <Form.Group>
@@ -66,15 +79,18 @@ const CategoryModal = ({ show, onClose, category, onSave }) => {
                             name="category_slug_en"
                             value={categoryData.category_slug_en}
                             onChange={handleChange}
+                            className='form-control'
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Category Image</Form.Label>
                         <Form.Control
-                            type="text"
-                            name="category_image"
+                            type="file"
                             value={categoryData.category_image}
-                            onChange={handleChange}
+                            onChange={handleFileChange}
+                            className='form-control'
+                            name="image"
+                            accept="image/*"
                         />
                     </Form.Group>
                     <button className='btn btn-sm btn-secondary float-right mt-2'>Submit</button>

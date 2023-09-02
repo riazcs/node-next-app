@@ -11,7 +11,7 @@ const categorySchema = new mongoose.Schema({
     },
     category_image: {
         type: String,
-        default: 'default.jpg'
+        default: 'default.jpg',
     }
 }, {
     timestamps: true

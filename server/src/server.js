@@ -12,6 +12,7 @@ const protectedRoutes = require('../routes/protectedRoutes');
 const authRoutes = require('../routes/authRoutes');
 const api = require("../routes/api");
 const bodyParser = require('body-parser');
+const path = require('path');
 
 app.use(morgan("dev"));
 app.use(clean());
@@ -42,6 +43,7 @@ app.use('/protected', protectedRoutes);
 app.use('/api', authRoutes);
 app.use('/api', api);
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.status(200).send({

@@ -19,8 +19,6 @@ exports.register = async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
 
         await user.save();
-
-        // Generate JWT and send it in response
         const payload = {
             user: {
                 id: user._id,
@@ -30,7 +28,7 @@ exports.register = async (req, res) => {
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: 3600 }, // Token expires in 1 hour
+            { expiresIn: 3600 },
             (err, token) => {
                 if (err) throw err;
                 res.json({ token });

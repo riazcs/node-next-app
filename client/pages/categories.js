@@ -3,16 +3,22 @@ import AdminLayout from '@/components/AdminLayout';
 import api from "service/api";
 import { useRouter } from 'next/router';
 import CategoryModal from '@/components/admin/CategoryModal';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Pagination from '@/components/common/Pagination';
+import moment from 'moment';
+import Swal from 'sweetalert2';
+import SweetAlert from '@/components/common/SweetAlert';
 
 const Category = () => {
-    // const [show, setShow] = useState(false);
-
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
-
     const router = useRouter();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [categories, setCategories] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [totalPages, setTotalPages] = useState();
+    const [totalEntries, setTotalEntries] = useState();
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [showAlert, setShowAlert] = useState(false);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -22,13 +28,18 @@ const Category = () => {
         }
     }, []);
 
-    const [categories, setCategories] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+
 
     const fetchCategories = async () => {
-        const response = await api.get('/categories');
+        const response = await api.get('/categories', {
+            params: {
+                page: currentPage,
+                perPage: itemsPerPage
+            }
+        });
         setCategories(response.data.CategoryData);
+        setTotalPages(response.data.totalPages);
+        setTotalEntries(response.data.totalCategory);
     };
 
     useEffect(() => {
@@ -40,22 +51,21 @@ const Category = () => {
         setShowModal(true);
     };
 
-    const handleAdd = () => {
-        setSelectedCategory(null);
-        setShowModal(true);
-    };
-
     const handleSaveCategory = async (newCategory) => {
         try {
-            if (newCategory.id) {
-                // Editing an existing category
-                await api.put(`/categories/${newCategory.id}`, newCategory);
+            if (newCategory._id) {
+                await api.put(`/categories/${newCategory._id}`, newCategory);
             } else {
-                // Adding a new category
-                await api.post('/categories', newCategory);
+                console.log(newCategory)
+                await api.post('/categories', newCategory, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
             }
             setShowModal(false);
             fetchCategories();
+            setShowAlert(true);
         } catch (error) {
             console.error('Error saving category:', error);
         }
@@ -63,8 +73,17 @@ const Category = () => {
 
     const handleDelete = async id => {
         try {
-            await axios.delete(`/api/categories/${id}`);
-            setCategories(prevCategories => prevCategories.filter(category => category.id !== id));
+            await api.delete(`/categories/${id}`);
+            setCategories(categories.filter(category => category._id !== id));
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                icon: 'success',
+                title: 'Category deleted'
+            });
         } catch (error) {
             console.error('Error deleting category:', error);
         }
@@ -122,10 +141,10 @@ const Category = () => {
                                                         <td className="dtr-control sorting_1">{category.category_name_en}{category.category_name_bn}</td>
                                                         <td>{category.category_slug_en}</td>
                                                         <td>{category.category_image}</td>
-                                                        <td>{category.createdAt}</td>
+                                                        <td>{moment(category.createdAt).format('LLL')}</td>
                                                         <td>
                                                             <button className='btn btn-sm btn-outline-secondary' onClick={() => handleEdit(category)}>Edit</button>
-                                                            <button className='btn btn-sm btn-danger' onClick={() => handleDelete(category.id)}>Delete</button>
+                                                            <button className='btn btn-sm btn-danger' onClick={() => handleDelete(category._id)}>Delete</button>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -133,21 +152,16 @@ const Category = () => {
 
 
                                         </table>
-                                    </div></div><div className="row">
-                                            <div className="col-sm-12 col-md-5">
-                                                <div className="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div><div className="col-sm-12 col-md-7">
-                                                <div className="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                                    <ul className="pagination"><li className="paginate_button page-item previous disabled" id="example2_previous">
-                                                        <a href="#" aria-controls="example2" data-dt-idx="0" className="page-link">Previous</a></li><li className="paginate_button page-item active">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="1" className="page-link">1</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" className="page-link">2</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" className="page-link">3</a></li><li className="paginate_button page-item ">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="4" className="page-link">4</a>
-                                                        </li><li className="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" className="page-link">5</a></li><li className="paginate_button page-item ">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="6" className="page-link">6</a></li><li className="paginate_button page-item next" id="example2_next">
-                                                            <a href="#" aria-controls="example2" data-dt-idx="7" className="page-link">Next</a>
-                                                        </li></ul></div></div></div></div>
+                                    </div></div>
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            totalPages={totalPages}
+                                            onPageChange={newPage => setCurrentPage(newPage)}
+                                            totalEntries={totalEntries}
+                                            perPage={itemsPerPage}
+                                        />
+
+                                    </div>
                                 </div>
 
                             </div>
@@ -159,22 +173,8 @@ const Category = () => {
                     </div>
 
                 </div>
-                {/* <CategoryModal show={showModal} onClose={() => setShowModal(false)} category={selectedCategory} onSave={handleSaveCategory} /> */}
-                {/* <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>
-                </Modal> */}
             </section>
+            {showAlert && <SweetAlert title="Category saved successfully!" type="success" />}
         </AdminLayout>
     );
 };
