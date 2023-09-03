@@ -5,6 +5,7 @@ const authController = require('../controllers/authController');
 const TaskManageController = require('../controllers/TaskManageController');
 const ProductController = require('../controllers/ProductController');
 const CategoryController = require('../controllers/CategoryController');
+const { catchErrors } = require("../handlers/errorHandlers");
 const multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -44,5 +45,13 @@ router.get('/categories/:categoryId', CategoryController.getCategoryById);
 router.put('/categories/:categoryId', authenticate, CategoryController.updateCategory);
 router.delete('/categories/:categoryId', authenticate, CategoryController.deleteCategory);
 
+//_______________________________ Admin management_______________________________
+router.route("/admin/create").post(catchErrors(adminController.create));
+router.route("/admin/read/:id").get(catchErrors(adminController.read));
+router.route("/admin/update/:id").patch(catchErrors(adminController.update));
+router.route("/admin/delete/:id").delete(catchErrors(adminController.delete));
+router.route("/admin/search").get(catchErrors(adminController.search));
+router.route("/admin/list").get(catchErrors(adminController.list));
+router.route("/admin/password-update/:id").patch(catchErrors(adminController.updatePassword));
 
 module.exports = router;
